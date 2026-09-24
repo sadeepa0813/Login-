@@ -29,6 +29,13 @@ function PasswordField({id, label, value, onChange, autoComplete, minLength}) {
   </div>;
 }
 
+// Static background: memoized so typing never re-renders it
+const Bg = React.memo(() => <>
+  <div className="noise"/>
+  <div className="aurora a1"/><div className="aurora a2"/><div className="aurora a3"/>
+  <div className="ribbon r1"/><div className="ribbon r2"/><div className="ribbon r3"/><div className="ribbon r4"/>
+</>);
+
 function App() {
   const [mode, setMode] = useState('signup');
   const [phase, setPhase] = useState('idle'); // idle | out | in
@@ -66,14 +73,12 @@ function App() {
   };
 
   return <main className="page">
-    <div className="noise"/>
-    <div className="aurora a1"/><div className="aurora a2"/><div className="aurora a3"/>
-    <div className="ribbon r1"/><div className="ribbon r2"/><div className="ribbon r3"/><div className="ribbon r4"/>
+    <Bg/>
 
-    <h1 className="hero"><span>Login form</span><strong>V7</strong></h1>
+    <h1 className="hero"><span>Sadeepa</span><strong>login</strong></h1>
 
     <section className="card-wrap" data-sw={phase === 'idle' ? 'off' : 'on'}>
-      <div className="corner c1"/><div className="corner c2"/><div className="spark"/>
+      {phase !== 'idle' && <><div className="corner c1"/><div className="corner c2"/><div className="spark"/></>}
       <div className="card" data-phase={phase}>
         <div className="body" style={{height: h === null ? 'auto' : h + 12}}>
           <div className="content" ref={inner}>
